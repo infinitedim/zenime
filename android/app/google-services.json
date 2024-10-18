@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "557026518999",
+    "project_id": "zenime-8",
+    "storage_bucket": "zenime-8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557026518999:android:933fe3b6653788eed2cd92",
+        "android_client_info": {
+          "package_name": "com.zenime.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkPd79Ta-qSrblavJRvDni4-gW0crKeMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

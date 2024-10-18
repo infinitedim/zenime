@@ -1,0 +1,15 @@
+flutter_native_splash:
+  android: true
+  ios: false
+  web: false
+
+  color_dark: "#121212"
+  image_dark: "assets/zenime_dark.png"
+  color: "#ffffff"
+  image: "assets/zenime_light.png"
+
+  android_12:
+    color_dark: "#121212"
+    image_dark: "assets/zenime_dark.png"
+    color: "#ffffff"
+    image: "assets/zenime_light.png"
