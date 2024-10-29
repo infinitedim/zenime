@@ -51,7 +51,15 @@ class ZenimeBottomNavigationBar extends GetView {
       selectedItemColor: Theme.of(context).colorScheme.primary,
       unselectedItemColor: Theme.of(context).colorScheme.primary,
       onTap: (index) {
-        Get.toNamed(bottomNavigationBarRoute[index]);
+        if (index == 1) {
+          Get.toNamed(
+            bottomNavigationBarRoute[index],
+            arguments: 0,
+          );
+        }
+        Get.toNamed(
+          bottomNavigationBarRoute[index],
+        );
       },
     );
   }

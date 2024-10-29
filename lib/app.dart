@@ -12,8 +12,8 @@ class ZenimeBinding extends Bindings {
   @override
   void dependencies() async {
     Get.lazyPut<AuthController>(() => AuthController());
-    Get.lazyPut<AnimeController>(() => AnimeController());
-    Get.lazyPut<MangaController>(() => MangaController());
+    Get.put(AnimeController());
+    Get.put(MangaController());
   }
 }
 
@@ -34,7 +34,7 @@ class ZenimeApp extends GetView<ThemeController> {
           theme: ZenimeTheme.lightTheme(),
           themeMode: controller.isDarkMode ? ThemeMode.dark : ThemeMode.light,
           initialRoute: auth.hasLoggedIn ? home : login,
-          defaultTransition: Transition.native,
+          defaultTransition: Transition.cupertino,
           routes: routes,
         );
       },

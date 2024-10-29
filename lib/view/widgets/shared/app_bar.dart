@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:zenime/view/widgets/shared/modal_search_widget.dart';
 
-class ZenimeAppBar extends StatelessWidget {
-  const ZenimeAppBar({super.key, required this.title});
+class ZenimeAppBar extends StatefulWidget {
+  const ZenimeAppBar({
+    super.key,
+    required this.title,
+    this.isExplore = false,
+    this.tabController,
+  });
 
   final String title;
+  final bool isExplore;
+  final TabController? tabController;
 
+  @override
+  State<ZenimeAppBar> createState() => _ZenimeAppBarState();
+}
+
+class _ZenimeAppBarState extends State<ZenimeAppBar>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -18,22 +29,26 @@ class ZenimeAppBar extends StatelessWidget {
           color: Theme.of(context).colorScheme.primary,
         ),
       ),
+      bottom: widget.isExplore
+          ? TabBar(
+              controller: widget.tabController,
+              tabs: <Widget>[
+                Tab(
+                  child: Text(
+                    'Anime',
+                    style: GoogleFonts.reggaeOne(),
+                  ),
+                ),
+                Tab(
+                  child: Text(
+                    'Manga',
+                    style: GoogleFonts.reggaeOne(),
+                  ),
+                ),
+              ],
+            )
+          : null,
       automaticallyImplyLeading: false,
-      actions: [
-        IconButton(
-          onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              builder: (context) => ModalSearchWidget(title: title),
-            );
-          },
-          icon: const FaIcon(
-            FontAwesomeIcons.magnifyingGlass,
-          ),
-          color: Theme.of(context).colorScheme.primary,
-        ),
-      ],
     );
   }
 }

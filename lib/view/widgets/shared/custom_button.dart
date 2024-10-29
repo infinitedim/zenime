@@ -49,23 +49,21 @@ class CustomButton extends GetView {
             ? CircularProgressIndicator(
                 color: Theme.of(context).colorScheme.surface,
               )
-            : Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    if (icon != null) FaIcon(icon, color: iconStyle?.iconColor),
-                    SizedBox(width: 10),
-                    Text(
-                      text ?? '',
-                      style: textStyle ??
-                          TextStyle(
-                            decoration: textDecoration,
-                            fontSize: getProportionateScreenWidth(18),
-                            color: Theme.of(context).colorScheme.surface,
-                          ),
-                    ),
-                  ],
-                ),
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (icon != null) FaIcon(icon, color: iconStyle?.iconColor),
+                  SizedBox(width: 10),
+                  Text(
+                    text ?? '',
+                    style: textStyle ??
+                        TextStyle(
+                          decoration: textDecoration,
+                          fontSize: getProportionateScreenWidth(18),
+                          color: Theme.of(context).colorScheme.surface,
+                        ),
+                  ),
+                ],
               ),
       ),
     );

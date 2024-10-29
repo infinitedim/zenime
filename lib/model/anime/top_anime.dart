@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:zenime/model/generic_model.dart';
@@ -13,7 +12,7 @@ class Anime {
   String? title;
   String? titleEnglish;
   String? titleJapanese;
-  List<String?>? titleSynonyms;
+  List<dynamic>? titleSynonyms;
   String? type;
   String? source;
   int? episodes;
@@ -90,7 +89,7 @@ class Anime {
     String? title,
     String? titleEnglish,
     String? titleJapanese,
-    List<String?>? titleSynonyms,
+    List<dynamic>? titleSynonyms,
     String? type,
     String? source,
     int? episodes,
@@ -160,16 +159,16 @@ class Anime {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'malId': malId,
+      'mal_id': malId,
       'url': url,
       'images': images,
       'trailer': trailer?.toMap(),
       'approved': approved,
       'titles': titles?.map((x) => x?.toMap()).toList(),
       'title': title,
-      'titleEnglish': titleEnglish,
-      'titleJapanese': titleJapanese,
-      'titleSynonyms': titleSynonyms?.map((x) => x).toList(),
+      'title_english': titleEnglish,
+      'title_japanese': titleJapanese,
+      'title_synonyms': titleSynonyms?.map((x) => x).toList(),
       'type': type,
       'source': source,
       'episodes': episodes,
@@ -193,7 +192,7 @@ class Anime {
       'licensors': licensors?.map((x) => x?.toMap()).toList(),
       'studios': studios?.map((x) => x?.toMap()).toList(),
       'genres': genres?.map((x) => x?.toMap()).toList(),
-      'explicitGenres': explicitGenres?.map((x) => x?.toMap()).toList(),
+      'explicit_genres': explicitGenres?.map((x) => x?.toMap()).toList(),
       'themes': themes?.map((x) => x?.toMap()).toList(),
       'demographics': demographics?.map((x) => x?.toMap()).toList(),
     };
@@ -221,12 +220,13 @@ class Anime {
           : null,
       title: map['title'] != null ? map['title'] as String : null,
       titleEnglish:
-          map['titleEnglish'] != null ? map['titleEnglish'] as String : null,
-      titleJapanese:
-          map['titleJapanese'] != null ? map['titleJapanese'] as String : null,
-      titleSynonyms: map['titleSynonyms'] != null
-          ? List<String?>.from(
-              (map['titleSynonyms'] as List<String?>).map<String?>((x) => x),
+          map['title_english'] != null ? map['title_english'] as String : null,
+      titleJapanese: map['title_japanese'] != null
+          ? map['title_japanese'] as String
+          : null,
+      titleSynonyms: map['title_synonyms'] != null
+          ? List<dynamic>.from(
+              (map['title_synonyms'] as List<dynamic>).map<dynamic>((x) => x),
             )
           : null,
       type: map['type'] != null ? map['type'] as String : null,
@@ -281,9 +281,9 @@ class Anime {
               ),
             )
           : null,
-      explicitGenres: map['explicitGenres'] != null
+      explicitGenres: map['explicit_genres'] != null
           ? List<Demographic?>.from(
-              (map['explicitGenres'] as List<dynamic>).map<Demographic?>(
+              (map['explicit_genres'] as List<dynamic>).map<Demographic?>(
                 (x) => Demographic?.fromMap(x as Map<String, dynamic>),
               ),
             )

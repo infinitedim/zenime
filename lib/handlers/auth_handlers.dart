@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zenime/controller/auth_controller.dart';
+import 'package:zenime/enum/enum_collection.dart';
 import 'package:zenime/routes/routes.dart';
 
 class AuthHandlers {
@@ -100,5 +101,20 @@ class AuthHandlers {
         Get.toNamed(home);
       }
     });
+  }
+
+  static void handleForgotPassword(AuthController controller) async {
+    final status = await controller.resetPassword(email: controller.email);
+    if (status == AuthStatus.successful) {
+      Fluttertoast.showToast(
+        msg: 'Reset email has been sent, check your email',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
   }
 }

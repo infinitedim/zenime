@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:zenime/APIs/api_services.dart';
 import 'package:zenime/model/anime/anime.dart';
@@ -22,7 +22,7 @@ class AnimeController extends GetxController {
     update();
   }
 
-  List<AnimeEpisode?>? _animeEpisodes;
+  List<AnimeEpisode?>? _animeEpisodes = [];
   List<AnimeEpisode?>? get animeEpisodes => _animeEpisodes;
   set animeEpisodes(List<AnimeEpisode?>? value) {
     _animeEpisodes = value;
@@ -57,10 +57,12 @@ class AnimeController extends GetxController {
           isLoading = false;
           topAnimes = response;
         }
-        print(response);
         completer.complete(true);
       },
       defaultErrorHandler: (errorMessage) {
+        if (kDebugMode) {
+          print(errorMessage);
+        }
         isLoading = false;
         completer.completeError(false);
       },
@@ -77,11 +79,15 @@ class AnimeController extends GetxController {
       onSuccess: (response) {
         if (response != null) {
           animeDetail = response;
-          log('$response');
         }
         completer.complete(true);
       },
-      defaultErrorHandler: (errorMessage) {},
+      defaultErrorHandler: (errorMessage) {
+        if (kDebugMode) {
+          print(errorMessage);
+        }
+        completer.completeError(false);
+      },
     );
 
     return await completer.future;
@@ -89,11 +95,21 @@ class AnimeController extends GetxController {
 
   Future<bool> getAnimeEpisodes({required int id}) async {
     Completer completer = Completer();
-    final response = ApiService<AnimeEpisode>().getAnimeEpisodes(id: id);
+    final response = ApiService<AnimeEpisode?>().getAnimeEpisodes(id: id);
 
     response(
-      onSuccess: (response) {},
-      defaultErrorHandler: (errorMessage) {},
+      onSuccess: (response) {
+        if (response != null || response != []) {
+          animeEpisodes = response;
+        }
+        completer.complete(true);
+      },
+      defaultErrorHandler: (errorMessage) {
+        if (kDebugMode) {
+          print(errorMessage);
+        }
+        completer.completeError(false);
+      },
     );
 
     return await completer.future;

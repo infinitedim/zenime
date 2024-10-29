@@ -1,8 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
-
 import 'package:zenime/model/generic_model.dart';
 
 class AnimeDetail {
@@ -15,7 +12,7 @@ class AnimeDetail {
   String? title;
   String? titleEnglish;
   String? titleJapanese;
-  List<String?>? titleSynonyms;
+  List<dynamic>? titleSynonyms;
   String? type;
   String? source;
   int? episodes;
@@ -24,7 +21,7 @@ class AnimeDetail {
   Published? aired;
   String? duration;
   String? rating;
-  double? score;
+  num? score;
   double? scoredBy;
   int? rank;
   int? popularity;
@@ -96,11 +93,11 @@ class AnimeDetail {
     Map<String, dynamic>? images,
     Trailer? trailer,
     bool? approved,
-    List<Title>? titles,
+    List<Title?>? titles,
     String? title,
     String? titleEnglish,
     String? titleJapanese,
-    List<String>? titleSynonyms,
+    List<dynamic>? titleSynonyms,
     String? type,
     String? source,
     int? episodes,
@@ -109,7 +106,7 @@ class AnimeDetail {
     Published? aired,
     String? duration,
     String? rating,
-    double? score,
+    num? score,
     double? scoredBy,
     int? rank,
     int? popularity,
@@ -178,16 +175,16 @@ class AnimeDetail {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'malId': malId,
+      'mal_id': malId,
       'url': url,
       'images': images,
       'trailer': trailer?.toMap(),
       'approved': approved,
       'titles': titles?.map((x) => x?.toMap()).toList(),
       'title': title,
-      'titleEnglish': titleEnglish,
-      'titleJapanese': titleJapanese,
-      'titleSynonyms': titleSynonyms,
+      'title_english': titleEnglish,
+      'title_japanese': titleJapanese,
+      'title_synonyms': titleSynonyms?.map((x) => x).toList(),
       'type': type,
       'source': source,
       'episodes': episodes,
@@ -197,7 +194,7 @@ class AnimeDetail {
       'duration': duration,
       'rating': rating,
       'score': score,
-      'scoredBy': scoredBy,
+      'scored_by': scoredBy,
       'rank': rank,
       'popularity': popularity,
       'members': members,
@@ -211,104 +208,144 @@ class AnimeDetail {
       'licensors': licensors?.map((x) => x?.toMap()).toList(),
       'studios': studios?.map((x) => x?.toMap()).toList(),
       'genres': genres?.map((x) => x?.toMap()).toList(),
-      'explicitGenres': explicitGenres?.map((x) => x?.toMap()).toList(),
+      'explicit_genres': explicitGenres?.map((x) => x?.toMap()).toList(),
       'themes': themes?.map((x) => x?.toMap()).toList(),
       'demographics': demographics?.map((x) => x?.toMap()).toList(),
       'relations': relations?.map((x) => x?.toMap()).toList(),
       'theme': theme?.toMap(),
-      'animeExternal': animeExternal?.map((x) => x?.toMap()).toList(),
+      'anime_external': animeExternal?.map((x) => x?.toMap()).toList(),
       'streaming': streaming?.map((x) => x?.toMap()).toList(),
     };
   }
 
   factory AnimeDetail.fromMap(Map<String, dynamic> map) {
     return AnimeDetail(
-      malId: map['malId'] as int,
-      url: map['url'] as String,
-      images: map['images'] as Map<String, dynamic>,
-      trailer: Trailer.fromMap(map['trailer'] as Map<String, dynamic>),
-      approved: map['approved'] as bool,
-      titles: List<Title>.from(
-        (map['titles'] as List<int>).map<Title>(
-          (x) => Title.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
-      title: map['title'] as String,
-      titleEnglish: map['titleEnglish'] as String,
-      titleJapanese: map['titleJapanese'] as String,
-      titleSynonyms: List<String>.from(
-        (map['titleSynonyms'] as List<String>),
-      ),
-      type: map['type'] as String,
-      source: map['source'] as String,
-      episodes: map['episodes'] as int,
-      status: map['status'] as String,
-      airing: map['airing'] as bool,
-      aired: Published.fromMap(map['aired'] as Map<String, dynamic>),
-      duration: map['duration'] as String,
-      rating: map['rating'] as String,
-      score: map['score'] as double,
-      scoredBy: map['scoredBy'] as double,
-      rank: map['rank'] as int,
-      popularity: map['popularity'] as int,
-      members: map['members'] as int,
-      favorites: map['favorites'] as int,
-      synopsis: map['synopsis'] as String,
-      background: map['background'] as String,
-      season: map['season'] as String,
-      year: map['year'] as int,
-      broadcast: Broadcast.fromMap(map['broadcast'] as Map<String, dynamic>),
-      producers: List<Demographic>.from(
-        (map['producers'] as List<int>).map<Demographic>(
-          (x) => Demographic.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
-      licensors: List<Demographic>.from(
-        (map['licensors'] as List<int>).map<Demographic>(
-          (x) => Demographic.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
-      studios: List<Demographic>.from(
-        (map['studios'] as List<int>).map<Demographic>(
-          (x) => Demographic.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
-      genres: List<Demographic>.from(
-        (map['genres'] as List<int>).map<Demographic>(
-          (x) => Demographic.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
-      explicitGenres: List<Demographic>.from(
-        (map['explicitGenres'] as List<int>).map<Demographic>(
-          (x) => Demographic.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
-      themes: List<Demographic>.from(
-        (map['themes'] as List<int>).map<Demographic>(
-          (x) => Demographic.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
-      demographics: List<Demographic>.from(
-        (map['demographics'] as List<int>).map<Demographic>(
-          (x) => Demographic.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
-      relations: List<Relation>.from(
-        (map['relations'] as List<int>).map<Relation>(
-          (x) => Relation.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
-      theme: Theme.fromMap(map['theme'] as Map<String, dynamic>),
-      animeExternal: List<External>.from(
-        (map['animeExternal'] as List<int>).map<External>(
-          (x) => External.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
-      streaming: List<External>.from(
-        (map['streaming'] as List<int>).map<External>(
-          (x) => External.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
+      malId: map['mal_id'] != null ? map['mal_id'] as int : null,
+      url: map['url'] != null ? map['url'] as String : null,
+      images: map['images'] != null
+          ? Map<String, dynamic>.from(
+              (map['images'] as Map<String, dynamic>),
+            )
+          : null,
+      trailer: map['trailer'] != null
+          ? Trailer.fromMap(map['trailer'] as Map<String, dynamic>)
+          : null,
+      approved: map['approved'] != null ? map['approved'] as bool : null,
+      titles: map['titles'] != null
+          ? List<Title?>.from(
+              (map['titles'] as List<dynamic>).map<Title?>(
+                (x) => Title?.fromMap(x as Map<String, dynamic>),
+              ),
+            )
+          : null,
+      title: map['title'] != null ? map['title'] as String : null,
+      titleEnglish:
+          map['title_english'] != null ? map['title_english'] as String : null,
+      titleJapanese: map['title_japanese'] != null
+          ? map['title_japanese'] as String
+          : null,
+      titleSynonyms: map['title_synonyms'] != null
+          ? List<dynamic>.from(
+              (map['title_synonyms'] as List<dynamic>).map<dynamic>((x) => x),
+            )
+          : null,
+      type: map['type'] != null ? map['type'] as String : null,
+      source: map['source'] != null ? map['source'] as String : null,
+      episodes: map['episodes'] != null ? map['episodes'] as int : null,
+      status: map['status'] != null ? map['status'] as String : null,
+      airing: map['airing'] != null ? map['airing'] as bool : null,
+      aired: map['aired'] != null
+          ? Published.fromMap(map['aired'] as Map<String, dynamic>)
+          : null,
+      duration: map['duration'] != null ? map['duration'] as String : null,
+      rating: map['rating'] != null ? map['rating'] as String : null,
+      score: map['score'] != null ? map['score'] as num : null,
+      scoredBy: map['scoredBy'] != null ? map['scoredBy'] as double : null,
+      rank: map['rank'] != null ? map['rank'] as int : null,
+      popularity: map['popularity'] != null ? map['popularity'] as int : null,
+      members: map['members'] != null ? map['members'] as int : null,
+      favorites: map['favorites'] != null ? map['favorites'] as int : null,
+      synopsis: map['synopsis'] != null ? map['synopsis'] as String : null,
+      background:
+          map['background'] != null ? map['background'] as String : null,
+      season: map['season'] != null ? map['season'] as String : null,
+      year: map['year'] != null ? map['year'] as int : null,
+      broadcast: map['broadcast'] != null
+          ? Broadcast.fromMap(map['broadcast'] as Map<String, dynamic>)
+          : null,
+      producers: map['producers'] != null
+          ? List<Demographic?>.from(
+              (map['producers'] as List<dynamic>).map<Demographic?>(
+                (x) => Demographic?.fromMap(x as Map<String, dynamic>),
+              ),
+            )
+          : null,
+      licensors: map['licensors'] != null
+          ? List<Demographic?>.from(
+              (map['licensors'] as List<dynamic>).map<Demographic?>(
+                (x) => Demographic?.fromMap(x as Map<String, dynamic>),
+              ),
+            )
+          : null,
+      studios: map['studios'] != null
+          ? List<Demographic?>.from(
+              (map['studios'] as List<dynamic>).map<Demographic?>(
+                (x) => Demographic?.fromMap(x as Map<String, dynamic>),
+              ),
+            )
+          : null,
+      genres: map['genres'] != null
+          ? List<Demographic?>.from(
+              (map['genres'] as List<dynamic>).map<Demographic?>(
+                (x) => Demographic?.fromMap(x as Map<String, dynamic>),
+              ),
+            )
+          : null,
+      explicitGenres: map['explicit_genres'] != null
+          ? List<Demographic?>.from(
+              (map['explicit_genres'] as List<dynamic>).map<Demographic?>(
+                (x) => Demographic?.fromMap(x as Map<String, dynamic>),
+              ),
+            )
+          : null,
+      themes: map['themes'] != null
+          ? List<Demographic?>.from(
+              (map['themes'] as List<dynamic>).map<Demographic?>(
+                (x) => Demographic?.fromMap(x as Map<String, dynamic>),
+              ),
+            )
+          : null,
+      demographics: map['demographics'] != null
+          ? List<Demographic?>.from(
+              (map['demographics'] as List<dynamic>).map<Demographic?>(
+                (x) => Demographic?.fromMap(x as Map<String, dynamic>),
+              ),
+            )
+          : null,
+      relations: map['relations'] != null
+          ? List<Relation>.from(
+              (map['relations'] as List<dynamic>).map<Relation>(
+                (x) => Relation.fromMap(x as Map<String, dynamic>),
+              ),
+            )
+          : null,
+      theme: map['theme'] != null
+          ? Theme.fromMap(map['theme'] as Map<String, dynamic>)
+          : null,
+      animeExternal: map['anime_external'] != null
+          ? List<External>.from(
+              (map['anime_external'] as List<dynamic>).map<External>(
+                (x) => External.fromMap(x as Map<String, dynamic>),
+              ),
+            )
+          : null,
+      streaming: map['streaming'] != null
+          ? List<External>.from(
+              (map['streaming'] as List<dynamic>).map<External>(
+                (x) => External.fromMap(x as Map<String, dynamic>),
+              ),
+            )
+          : null,
     );
   }
 

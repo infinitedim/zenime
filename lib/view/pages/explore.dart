@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zenime/controller/anime_controller.dart';
+import 'package:zenime/controller/manga_controller.dart';
 import 'package:zenime/routes/routes.dart';
 import 'package:zenime/size_config.dart';
 import 'package:collection/collection.dart';
@@ -16,9 +17,21 @@ class ExplorePage extends StatefulWidget {
   State<ExplorePage> createState() => _ExplorePageState();
 }
 
-class _ExplorePageState extends State<ExplorePage> {
+class _ExplorePageState extends State<ExplorePage>
+    with TickerProviderStateMixin {
+  late TabController _tabController;
   final AnimeController animeController = Get.find();
+  final MangaController mangaController = Get.find();
+  int? initIndex = Get.arguments;
   bool isAnimeSelected = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _tabController =
+        TabController(initialIndex: initIndex ?? 0, length: 2, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,44 +39,81 @@ class _ExplorePageState extends State<ExplorePage> {
     int index = rand.nextInt(animeController.topAnimes?.length ?? 1);
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: MediaQuery.of(context).size * 0.070,
+        preferredSize: MediaQuery.of(context).size * 0.12,
         child: ZenimeAppBar(
+          isExplore: true,
           title: animeController.topAnimes?[index]?.title ?? 'Yuyu hakusho',
+          tabController: _tabController,
         ),
       ),
-      onDrawerChanged: (isOpened) {
-        isOpened = !isOpened;
-      },
       body: Container(
         height: SizeConfig.screenHeight,
         width: SizeConfig.screenWidth,
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: TabBarView(
+          controller: _tabController,
           children: [
-            const SizedBox(height: 10),
-            if (animeController.topAnimes != null)
-              SizedBox(
-                height: SizeConfig.screenHeight - 215,
-                width: SizeConfig.screenWidth,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    children:
-                        animeController.topAnimes!.mapIndexed((index, element) {
-                      return GestureDetector(
-                        onTap: () {
-                          Get.toNamed(detail);
-                        },
-                        child: ExploreCardWidget(
-                          isAnime: true,
-                          isLoading: animeController.isLoading,
-                        ),
-                      );
-                    }).toList(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
+                if (animeController.topAnimes != null)
+                  SizedBox(
+                    height: SizeConfig.screenHeight - 205,
+                    width: SizeConfig.screenWidth,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        children: animeController.topAnimes!
+                            .mapIndexed((index, anime) {
+                          return GestureDetector(
+                            onTap: () {
+                              Get.toNamed(
+                                animeDetail,
+                                arguments: anime?.malId,
+                              );
+                            },
+                            child: ExploreCardWidget.anime(
+                              isLoading: animeController.isLoading,
+                              anime: anime,
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
                   ),
-                ),
-              ),
+              ],
+            ),
+            Column(
+              children: [
+                SizedBox(height: 10),
+                if (mangaController.topMangas != null)
+                  SizedBox(
+                    height: SizeConfig.screenHeight - 205,
+                    width: SizeConfig.screenWidth,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        children: mangaController.topMangas!
+                            .mapIndexed((index, manga) {
+                          return GestureDetector(
+                            onTap: () {
+                              Get.toNamed(
+                                mangaDetail,
+                                arguments: manga?.malId,
+                              );
+                            },
+                            child: ExploreCardWidget.manga(
+                              isLoading: animeController.isLoading,
+                              manga: manga,
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ],
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:zenime/constant/constant.dart';
 import 'package:zenime/model/anime/anime.dart';
 import 'package:zenime/model/anime/anime_episodes.dart';
 import 'package:zenime/model/anime/top_anime.dart';
+import 'package:zenime/model/manga/manga.dart';
 import 'package:zenime/model/manga/top_manga.dart';
 
 class ApiService<T> {
@@ -27,7 +28,6 @@ class ApiService<T> {
       const String url = "$apiUrl/top/anime";
 
       return http.get(Uri.parse(url), headers: headers).then((value) {
-        debugPrint('${json.decode(value.body)['data'][0]}');
         onSuccess(
           (json.decode(value.body)['data'] as List?)
               ?.map((element) =>
@@ -76,11 +76,10 @@ class ApiService<T> {
       final String url = "$apiUrl/anime/$id/episodes";
 
       http.get(Uri.parse(url), headers: headers).then((value) {
+        debugPrint('${json.decode(value.body)['data']}');
         onSuccess(
           (json.decode(value.body)['data'] as List?)
-              ?.map((element) =>
-                  AnimeEpisode.fromMap(element as Map<String, dynamic>) as T?)
-              .cast<T?>()
+              ?.map((element) => AnimeEpisode.fromMap(element) as T?)
               .toList(),
         );
       }).catchError((error) {
@@ -100,13 +99,28 @@ class ApiService<T> {
       final String url = "$apiUrl/anime/$id/full";
 
       http.get(Uri.parse(url), headers: headers).then((value) {
-        if (kDebugMode) {
-          print(json.decode(value.body)['data']);
-        }
         onSuccess(
-          (json.decode(value.body)['data'])
-              .then((value) => AnimeDetail.fromMap(value))
-              .cast<T?>(),
+          (AnimeDetail.fromMap(json.decode(value.body)['data']) as T?),
+        );
+      }).catchError((error) {
+        defaultErrorHandler('Error: $error');
+      });
+    };
+  }
+
+  Function({
+    required void Function(T? response) onSuccess,
+    required void Function(String? errorMessage) defaultErrorHandler,
+  }) getMangaFullById({required int id}) {
+    return ({
+      required void Function(T? response) onSuccess,
+      required void Function(String? errorMessage) defaultErrorHandler,
+    }) async {
+      final String url = "$apiUrl/manga/$id/full";
+
+      http.get(Uri.parse(url), headers: headers).then((value) {
+        onSuccess(
+          (MangaDetail.fromMap(json.decode(value.body)['data']) as T?),
         );
       }).catchError((error) {
         defaultErrorHandler('Error: $error');

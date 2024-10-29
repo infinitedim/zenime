@@ -1,12 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
-
 import 'package:zenime/model/generic_model.dart';
 
 class MangaDetail {
-  double? malId;
+  int? malId;
   String? url;
   Map<String, dynamic>? images;
   bool? approved;
@@ -73,7 +70,7 @@ class MangaDetail {
   });
 
   MangaDetail copyWith({
-    double? malId,
+    int? malId,
     String? url,
     Map<String, dynamic>? images,
     bool? approved,
@@ -142,14 +139,14 @@ class MangaDetail {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'malId': malId,
+      'mal_id': malId,
       'url': url,
       'images': images,
       'approved': approved,
       'titles': titles?.map((x) => x?.toMap()).toList(),
       'title': title,
-      'titleEnglish': titleEnglish,
-      'titleJapanese': titleJapanese,
+      'title_english': titleEnglish,
+      'title_japanese': titleJapanese,
       'titleSynonyms': titleSynonyms?.map((x) => x).toList(),
       'type': type,
       'chapters': chapters,
@@ -179,7 +176,7 @@ class MangaDetail {
 
   factory MangaDetail.fromMap(Map<String, dynamic> map) {
     return MangaDetail(
-      malId: map['malId'] != null ? map['malId'] as double : null,
+      malId: map['mal_id'] != null ? map['mal_id'] as int : null,
       url: map['url'] != null ? map['url'] as String : null,
       images: map['images'] != null
           ? Map<String, dynamic>.from((map['images'] as Map<String, dynamic>))
@@ -187,16 +184,17 @@ class MangaDetail {
       approved: map['approved'] != null ? map['approved'] as bool : null,
       titles: map['titles'] != null
           ? List<Title?>.from(
-              (map['titles'] as List<int>).map<Title?>(
+              (map['titles'] as List<dynamic>).map<Title?>(
                 (x) => Title?.fromMap(x as Map<String, dynamic>),
               ),
             )
           : null,
       title: map['title'] != null ? map['title'] as String : null,
       titleEnglish:
-          map['titleEnglish'] != null ? map['titleEnglish'] as String : null,
-      titleJapanese:
-          map['titleJapanese'] != null ? map['titleJapanese'] as String : null,
+          map['title_english'] != null ? map['title_english'] as String : null,
+      titleJapanese: map['title_japanese'] != null
+          ? map['title_japanese'] as String
+          : null,
       titleSynonyms: map['titleSynonyms'] != null
           ? List<String?>.from(
               (map['titleSynonyms'] as List<String?>).map<String?>((x) => x),
@@ -221,56 +219,56 @@ class MangaDetail {
           map['background'] != null ? map['background'] as String : null,
       authors: map['authors'] != null
           ? List<Demographic?>.from(
-              (map['authors'] as List<int>).map<Demographic?>(
+              (map['authors'] as List<dynamic>).map<Demographic?>(
                 (x) => Demographic?.fromMap(x as Map<String, dynamic>),
               ),
             )
           : null,
       serializations: map['serializations'] != null
           ? List<Demographic?>.from(
-              (map['serializations'] as List<int>).map<Demographic?>(
+              (map['serializations'] as List<dynamic>).map<Demographic?>(
                 (x) => Demographic?.fromMap(x as Map<String, dynamic>),
               ),
             )
           : null,
       genres: map['genres'] != null
           ? List<Demographic?>.from(
-              (map['genres'] as List<int>).map<Demographic?>(
+              (map['genres'] as List<dynamic>).map<Demographic?>(
                 (x) => Demographic?.fromMap(x as Map<String, dynamic>),
               ),
             )
           : null,
       explicitGenres: map['explicitGenres'] != null
           ? List<Demographic?>.from(
-              (map['explicitGenres'] as List<int>).map<Demographic?>(
+              (map['explicitGenres'] as List<dynamic>).map<Demographic?>(
                 (x) => Demographic?.fromMap(x as Map<String, dynamic>),
               ),
             )
           : null,
       themes: map['themes'] != null
           ? List<Demographic?>.from(
-              (map['themes'] as List<int>).map<Demographic?>(
+              (map['themes'] as List<dynamic>).map<Demographic?>(
                 (x) => Demographic?.fromMap(x as Map<String, dynamic>),
               ),
             )
           : null,
       demographics: map['demographics'] != null
           ? List<Demographic?>.from(
-              (map['demographics'] as List<int>).map<Demographic?>(
+              (map['demographics'] as List<dynamic>).map<Demographic?>(
                 (x) => Demographic?.fromMap(x as Map<String, dynamic>),
               ),
             )
           : null,
       relations: map['relations'] != null
           ? List<Relation?>.from(
-              (map['relations'] as List<int>).map<Relation?>(
+              (map['relations'] as List<dynamic>).map<Relation?>(
                 (x) => Relation?.fromMap(x as Map<String, dynamic>),
               ),
             )
           : null,
       mangaDetailExternal: map['mangaDetailExternal'] != null
           ? List<External?>.from(
-              (map['mangaDetailExternal'] as List<int>).map<External?>(
+              (map['mangaDetailExternal'] as List<dynamic>).map<External?>(
                 (x) => External?.fromMap(x as Map<String, dynamic>),
               ),
             )

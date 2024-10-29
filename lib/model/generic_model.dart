@@ -145,42 +145,13 @@ class Demographic {
 }
 
 class External {
-  String name;
-  String url;
+  String? name;
+  String? url;
 
   External({
-    required this.name,
-    required this.url,
+    this.name,
+    this.url,
   });
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'name': name,
-      'url': url,
-    };
-  }
-
-  factory External.fromMap(Map<String, dynamic> map) {
-    return External(
-      name: map['name'] as String,
-      url: map['url'] as String,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory External.fromJson(String source) =>
-      External.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  bool operator ==(covariant External other) {
-    if (identical(this, other)) return true;
-
-    return other.name == name && other.url == url;
-  }
-
-  @override
-  int get hashCode => name.hashCode ^ url.hashCode;
 
   External copyWith({
     String? name,
@@ -192,8 +163,37 @@ class External {
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'name': name,
+      'url': url,
+    };
+  }
+
+  factory External.fromMap(Map<String, dynamic> map) {
+    return External(
+      name: map['name'] != null ? map['name'] as String : null,
+      url: map['url'] != null ? map['url'] as String : null,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory External.fromJson(String source) =>
+      External.fromMap(json.decode(source) as Map<String, dynamic>);
+
   @override
   String toString() => 'External(name: $name, url: $url)';
+
+  @override
+  bool operator ==(covariant External other) {
+    if (identical(this, other)) return true;
+
+    return other.name == name && other.url == url;
+  }
+
+  @override
+  int get hashCode => name.hashCode ^ url.hashCode;
 }
 
 class From {
@@ -538,13 +538,51 @@ class Published {
 }
 
 class Relation {
-  String relation;
-  List<Demographic> entry;
+  String? relation;
+  List<Demographic?>? entry;
 
   Relation({
-    required this.relation,
-    required this.entry,
+    this.relation,
+    this.entry,
   });
+
+  Relation copyWith({
+    String? relation,
+    List<Demographic?>? entry,
+  }) {
+    return Relation(
+      relation: relation ?? this.relation,
+      entry: entry ?? this.entry,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'relation': relation,
+      'entry': entry?.map((x) => x?.toMap()).toList(),
+    };
+  }
+
+  factory Relation.fromMap(Map<String, dynamic> map) {
+    return Relation(
+      relation: map['relation'] != null ? map['relation'] as String : null,
+      entry: map['entry'] != null
+          ? List<Demographic?>.from(
+              (map['entry'] as List<dynamic>).map<Demographic?>(
+                (x) => Demographic?.fromMap(x as Map<String, dynamic>),
+              ),
+            )
+          : null,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Relation.fromJson(String source) =>
+      Relation.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String toString() => 'Relation(relation: $relation, entry: $entry)';
 
   @override
   bool operator ==(covariant Relation other) {
@@ -555,52 +593,56 @@ class Relation {
 
   @override
   int get hashCode => relation.hashCode ^ entry.hashCode;
+}
+
+class Theme {
+  List<String?>? openings;
+  List<String?>? endings;
+
+  Theme({
+    this.openings,
+    this.endings,
+  });
+
+  Theme copyWith({
+    List<String?>? openings,
+    List<String?>? endings,
+  }) {
+    return Theme(
+      openings: openings ?? this.openings,
+      endings: endings ?? this.endings,
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'relation': relation,
-      'entry': entry.map((x) => x.toMap()).toList(),
+      'openings': openings?.map((x) => x).toList(),
+      'endings': endings?.map((x) => x).toList(),
     };
   }
 
-  factory Relation.fromMap(Map<String, dynamic> map) {
-    return Relation(
-      relation: map['relation'] as String,
-      entry: List<Demographic>.from(
-        (map['entry'] as List<int>).map<Demographic>(
-          (x) => Demographic.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
+  factory Theme.fromMap(Map<String, dynamic> map) {
+    return Theme(
+      openings: map['openings'] != null
+          ? List<String?>.from(
+              (map['openings'] as List<dynamic>).map<String?>((x) => x),
+            )
+          : null,
+      endings: map['endings'] != null
+          ? List<String?>.from(
+              (map['endings'] as List<dynamic>).map<String?>((x) => x),
+            )
+          : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Relation.fromJson(String source) =>
-      Relation.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  Relation copyWith({
-    String? relation,
-    List<Demographic>? entry,
-  }) {
-    return Relation(
-      relation: relation ?? this.relation,
-      entry: entry ?? this.entry,
-    );
-  }
+  factory Theme.fromJson(String source) =>
+      Theme.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'Relation(relation: $relation, entry: $entry)';
-}
-
-class Theme {
-  List<String> openings;
-  List<String> endings;
-
-  Theme({
-    required this.openings,
-    required this.endings,
-  });
+  String toString() => 'Theme(openings: $openings, endings: $endings)';
 
   @override
   bool operator ==(covariant Theme other) {
@@ -612,38 +654,6 @@ class Theme {
 
   @override
   int get hashCode => openings.hashCode ^ endings.hashCode;
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'openings': openings,
-      'endings': endings,
-    };
-  }
-
-  factory Theme.fromMap(Map<String, dynamic> map) {
-    return Theme(
-      openings: List<String>.from((map['openings'] as List<String>)),
-      endings: List<String>.from((map['endings'] as List<String>)),
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory Theme.fromJson(String source) =>
-      Theme.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  Theme copyWith({
-    List<String>? openings,
-    List<String>? endings,
-  }) {
-    return Theme(
-      openings: openings ?? this.openings,
-      endings: endings ?? this.endings,
-    );
-  }
-
-  @override
-  String toString() => 'Theme(openings: $openings, endings: $endings)';
 }
 
 class Title {

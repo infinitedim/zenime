@@ -50,9 +50,9 @@ class Home extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 20),
-                    RecommendationWidget(isAnime: true),
+                    RecommendationWidget.anime(),
                     SizedBox(height: 30),
-                    RecommendationWidget(isAnime: false),
+                    RecommendationWidget.manga(),
                   ],
                 ),
               ),

@@ -2,13 +2,13 @@
 import 'dart:convert';
 
 class AnimeEpisode {
-  double? malId;
+  int? malId;
   String? url;
   String? title;
   String? titleJapanese;
   String? titleRomanji;
   String? aired;
-  dynamic score;
+  double? score;
   bool? filler;
   bool? recap;
   String? forumUrl;
@@ -27,13 +27,13 @@ class AnimeEpisode {
   });
 
   AnimeEpisode copyWith({
-    double? malId,
+    int? malId,
     String? url,
     String? title,
     String? titleJapanese,
     String? titleRomanji,
     String? aired,
-    dynamic score,
+    double? score,
     bool? filler,
     bool? recap,
     String? forumUrl,
@@ -57,30 +57,31 @@ class AnimeEpisode {
       'malId': malId,
       'url': url,
       'title': title,
-      'titleJapanese': titleJapanese,
-      'titleRomanji': titleRomanji,
+      'title_japanese': titleJapanese,
+      'title_romanji': titleRomanji,
       'aired': aired,
       'score': score,
       'filler': filler,
       'recap': recap,
-      'forumUrl': forumUrl,
+      'forum_url': forumUrl,
     };
   }
 
   factory AnimeEpisode.fromMap(Map<String, dynamic> map) {
     return AnimeEpisode(
-      malId: map['malId'] != null ? map['malId'] as double : null,
+      malId: map['mal_id'] != null ? map['mal_id'] as int : null,
       url: map['url'] != null ? map['url'] as String : null,
       title: map['title'] != null ? map['title'] as String : null,
-      titleJapanese:
-          map['titleJapanese'] != null ? map['titleJapanese'] as String : null,
+      titleJapanese: map['title_japanese'] != null
+          ? map['title_japanese'] as String
+          : null,
       titleRomanji:
-          map['titleRomanji'] != null ? map['titleRomanji'] as String : null,
+          map['title_romanji'] != null ? map['title_romanji'] as String : null,
       aired: map['aired'] != null ? map['aired'] as String : null,
-      score: map['score'] as dynamic,
+      score: map['score'] != null ? map['score'] as double : null,
       filler: map['filler'] != null ? map['filler'] as bool : null,
       recap: map['recap'] != null ? map['recap'] as bool : null,
-      forumUrl: map['forumUrl'] != null ? map['forumUrl'] as String : null,
+      forumUrl: map['forum_url'] != null ? map['forum_url'] as String : null,
     );
   }
 

@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:zenime/APIs/api_services.dart';
+import 'package:zenime/model/manga/manga.dart';
 import 'package:zenime/model/manga/top_manga.dart';
 
 class MangaController extends GetxController {
@@ -16,6 +18,14 @@ class MangaController extends GetxController {
   bool get isLoading => _isLoading;
   set isLoading(bool value) {
     _isLoading = value;
+
+    update();
+  }
+
+  MangaDetail? _mangaDetail;
+  MangaDetail? get mangaDetail => _mangaDetail;
+  set mangaDetail(MangaDetail? value) {
+    _mangaDetail = value;
 
     update();
   }
@@ -37,6 +47,28 @@ class MangaController extends GetxController {
       },
       defaultErrorHandler: (errorMessage) {
         isLoading = false;
+        completer.completeError(false);
+      },
+    );
+
+    return await completer.future;
+  }
+
+  Future<bool> getMangaFullById({required int id}) async {
+    Completer completer = Completer();
+    final response = ApiService<MangaDetail>().getMangaFullById(id: id);
+
+    response(
+      onSuccess: (response) {
+        if (response != null) {
+          mangaDetail = response;
+        }
+        completer.complete(true);
+      },
+      defaultErrorHandler: (errorMessage) {
+        if (kDebugMode) {
+          print(errorMessage);
+        }
         completer.completeError(false);
       },
     );

@@ -73,4 +73,16 @@ class Helpers {
       currentFocus.unfocus();
     }
   }
+
+  static void bookmarkErrorToast() {
+    Fluttertoast.showToast(
+      msg: 'bookmark feature not ready yet',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
 }

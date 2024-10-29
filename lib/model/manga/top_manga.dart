@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:zenime/model/generic_model.dart';
@@ -142,8 +141,8 @@ class Manga {
       'approved': approved,
       'titles': titles?.map((x) => x?.toMap()).toList(),
       'title': title,
-      'titleEnglish': titleEnglish,
-      'titleJapanese': titleJapanese,
+      'title_english': titleEnglish,
+      'title_japanese': titleJapanese,
       'titleSynonyms': titleSynonyms?.map((x) => x).toList(),
       'type': type,
       'chapters': chapters,
@@ -171,7 +170,7 @@ class Manga {
 
   factory Manga.fromMap(Map<String, dynamic> map) {
     return Manga(
-      malId: map['malId'] != null ? map['malId'] as int : null,
+      malId: map['mal_id'] != null ? map['mal_id'] as int : null,
       url: map['url'] != null ? map['url'] as String : null,
       images: map['images'] != null
           ? Map<String, dynamic>.from(
@@ -188,9 +187,10 @@ class Manga {
           : null,
       title: map['title'] != null ? map['title'] as String : null,
       titleEnglish:
-          map['titleEnglish'] != null ? map['titleEnglish'] as String : null,
-      titleJapanese:
-          map['titleJapanese'] != null ? map['titleJapanese'] as String : null,
+          map['title_english'] != null ? map['title_english'] as String : null,
+      titleJapanese: map['title_japanese'] != null
+          ? map['title_japanese'] as String
+          : null,
       titleSynonyms: map['titleSynonyms'] != null
           ? List<String?>.from(
               (map['titleSynonyms'] as List<String?>).map<String?>((x) => x),

@@ -6,3 +6,8 @@ enum AuthStatus {
   weakPassword,
   unknown,
 }
+
+enum ZenimeType {
+  anime,
+  manga,
+}

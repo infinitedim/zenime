@@ -1,4 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -112,7 +111,9 @@ class SignUpForm extends StatelessWidget {
               text: 'Register',
               onPressed: () {
                 AuthHandlers.handleRegister(controller).then((value) {
-                  FocusScope.of(context).unfocus();
+                  if (context.mounted) {
+                    FocusScope.of(context).unfocus();
+                  }
                 });
               },
             ),
