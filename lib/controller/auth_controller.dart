@@ -84,6 +84,8 @@ class AuthController extends GetxController with GetxServiceMixin {
             ? '/home'
             : '/login';
     Get.offAllNamed(routeName);
+
+    update();
   }
 
   Future<AuthStatus> signIn({
@@ -91,10 +93,48 @@ class AuthController extends GetxController with GetxServiceMixin {
     required String password,
   }) async {
     try {
-      await auth.signInWithEmailAndPassword(email: email, password: password);
+      await auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((value) {
+        isLoading = false;
+        hasLoggedIn = true;
+        isLoading = false;
+      });
+
       _user.value = auth.currentUser;
-      hasLoggedIn = true;
+      authStatus = AuthStatus.successful;
+      return authStatus;
+    } on FirebaseAuthException catch (error) {
+      Fluttertoast.showToast(
+        msg: AuthExceptionHandler.generateErrorMessage(
+          AuthExceptionHandler.handleAuthException(error),
+        ),
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
       isLoading = false;
+      return AuthExceptionHandler.handleAuthException(error);
+    }
+  }
+
+  Future<AuthStatus> signUp({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await auth
+          .createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      )
+          .then((value) {
+        hasLoggedIn = true;
+        _user.value = auth.currentUser;
+      });
       authStatus = AuthStatus.successful;
       return authStatus;
     } on FirebaseAuthException catch (error) {
@@ -113,22 +153,15 @@ class AuthController extends GetxController with GetxServiceMixin {
     }
   }
 
-  Future<AuthStatus> signUp({
-    required String email,
-    required String password,
-  }) async {
-    try {
-      await auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      hasLoggedIn = true;
-      _user.value = auth.currentUser;
+  Future<AuthStatus> resetPassword({required String email}) async {
+    await auth.sendPasswordResetEmail(email: email).then((value) {
       authStatus = AuthStatus.successful;
-      return authStatus;
-    } on FirebaseAuthException catch (error) {
+      return AuthStatus.successful;
+    }).catchError((error) {
       Fluttertoast.showToast(
-        msg: AuthExceptionHandler.generateErrorMessage(authStatus),
+        msg: AuthExceptionHandler.generateErrorMessage(
+          AuthExceptionHandler.handleAuthException(error),
+        ),
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
@@ -137,24 +170,6 @@ class AuthController extends GetxController with GetxServiceMixin {
         fontSize: 16.0,
       );
       return AuthExceptionHandler.handleAuthException(error);
-    }
-  }
-
-  Future<AuthStatus> resetPassword({required String email}) async {
-    await auth.sendPasswordResetEmail(email: email).then((value) {
-      authStatus = AuthStatus.successful;
-      return AuthStatus.successful;
-    }).catchError((e) {
-      Fluttertoast.showToast(
-        msg: AuthExceptionHandler.generateErrorMessage(authStatus),
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-      return AuthExceptionHandler.handleAuthException(e);
     });
     return AuthStatus.successful;
   }
@@ -170,6 +185,38 @@ class AuthController extends GetxController with GetxServiceMixin {
     } on FirebaseAuthException catch (error) {
       Fluttertoast.showToast(
         msg: AuthExceptionHandler.generateErrorMessage(authStatus),
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+      return AuthExceptionHandler.handleAuthException(error);
+    }
+  }
+
+  Future<AuthStatus> deleteUserAccount() async {
+    try {
+      authStatus = AuthStatus.unknown;
+      if (_user.value != null) {
+        await _user.value!.delete();
+        Fluttertoast.showToast(
+          msg: 'Success delete your zenime account',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+      }
+      return authStatus;
+    } on FirebaseAuthException catch (error) {
+      Fluttertoast.showToast(
+        msg: AuthExceptionHandler.generateErrorMessage(
+          AuthExceptionHandler.handleAuthException(error),
+        ),
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,

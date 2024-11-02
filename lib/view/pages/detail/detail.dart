@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zenime/enum/enum_collection.dart';
@@ -16,9 +15,6 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     dynamic id = Get.arguments;
 
-    if (kDebugMode) {
-      print(id);
-    }
     Map<ZenimeType, Widget> pages = {
       ZenimeType.anime: DetailAnime(id: id),
       ZenimeType.manga: DetailManga(id: id),

@@ -4,28 +4,26 @@ import 'package:zenime/model/generic_model.dart';
 AnimeDetail animeDetailDummy = AnimeDetail(
   malId: 5114,
   url: 'https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood',
-  images: {
-    "jpg": {
-      "image_url": "https://cdn.myanimelist.net/images/anime/1208/94745.jpg",
-      "small_image_url":
-          "https://cdn.myanimelist.net/images/anime/1208/94745t.jpg",
-      "large_image_url":
-          "https://cdn.myanimelist.net/images/anime/1208/94745l.jpg"
-    },
-    "webp": {
-      "image_url": "https://cdn.myanimelist.net/images/anime/1208/94745.webp",
-      "small_image_url":
-          "https://cdn.myanimelist.net/images/anime/1208/94745t.webp",
-      "large_image_url":
-          "https://cdn.myanimelist.net/images/anime/1208/94745l.webp"
-    }
-  },
+  images: Images(
+    jpg: Image(
+        imageUrl: "https://cdn.myanimelist.net/images/anime/1208/94745.jpg",
+        smallImageUrl:
+            "https://cdn.myanimelist.net/images/anime/1208/94745t.jpg",
+        largeImageUrl:
+            "https://cdn.myanimelist.net/images/anime/1208/94745l.jpg"),
+    webp: Image(
+        imageUrl: "https://cdn.myanimelist.net/images/anime/1208/94745.webp",
+        smallImageUrl:
+            "https://cdn.myanimelist.net/images/anime/1208/94745t.webp",
+        largeImageUrl:
+            "https://cdn.myanimelist.net/images/anime/1208/94745l.webp"),
+  ),
   trailer: Trailer(
     youtubeId: "--IcmZkvL0Q",
     url: "https://www.youtube.com/watch?v=--IcmZkvL0Q",
     embedUrl:
         "https://www.youtube.com/embed/--IcmZkvL0Q?enablejsapi=1&wmode=opaque&autoplay=1",
-    images: Images(
+    images: TrailerImages(
       imageUrl: "https://img.youtube.com/vi/--IcmZkvL0Q/default.jpg",
       smallImageUrl: "https://img.youtube.com/vi/--IcmZkvL0Q/sddefault.jpg",
       mediumImageUrl: "https://img.youtube.com/vi/--IcmZkvL0Q/mqdefault.jpg",

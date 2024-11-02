@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zenime/controller/anime_controller.dart';
@@ -34,15 +33,18 @@ class _ExplorePageState extends State<ExplorePage>
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Random rand = Random();
-    int index = rand.nextInt(animeController.topAnimes?.length ?? 1);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: MediaQuery.of(context).size * 0.12,
         child: ZenimeAppBar(
           isExplore: true,
-          title: animeController.topAnimes?[index]?.title ?? 'Yuyu hakusho',
           tabController: _tabController,
         ),
       ),

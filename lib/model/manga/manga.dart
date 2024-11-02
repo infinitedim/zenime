@@ -5,7 +5,7 @@ import 'package:zenime/model/generic_model.dart';
 class MangaDetail {
   int? malId;
   String? url;
-  Map<String, dynamic>? images;
+  Images? images;
   bool? approved;
   List<Title?>? titles;
   String? title;
@@ -72,7 +72,7 @@ class MangaDetail {
   MangaDetail copyWith({
     int? malId,
     String? url,
-    Map<String, dynamic>? images,
+    Images? images,
     bool? approved,
     List<Title?>? titles,
     String? title,
@@ -179,7 +179,7 @@ class MangaDetail {
       malId: map['mal_id'] != null ? map['mal_id'] as int : null,
       url: map['url'] != null ? map['url'] as String : null,
       images: map['images'] != null
-          ? Map<String, dynamic>.from((map['images'] as Map<String, dynamic>))
+          ? Images.fromMap((map['images'] as Map<String, dynamic>))
           : null,
       approved: map['approved'] != null ? map['approved'] as bool : null,
       titles: map['titles'] != null
@@ -292,7 +292,7 @@ class MangaDetail {
 
     return other.malId == malId &&
         other.url == url &&
-        mapEquals(other.images, images) &&
+        other.images == images &&
         other.approved == approved &&
         listEquals(other.titles, titles) &&
         other.title == title &&

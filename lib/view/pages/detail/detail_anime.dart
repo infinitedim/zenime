@@ -82,8 +82,9 @@ class DetailAnime extends GetView<AnimeController> {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: NetworkImage(
-                                  controller.animeDetail?.images?['jpg']
-                                      ['large_image_url'],
+                                  controller.animeDetail?.images?.jpg
+                                          ?.largeImageUrl ??
+                                      '',
                                 ),
                                 fit: BoxFit.cover,
                               ),

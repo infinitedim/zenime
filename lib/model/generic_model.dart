@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -279,19 +280,21 @@ class Image {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'imageUrl': imageUrl,
-      'smallImageUrl': smallImageUrl,
-      'largeImageUrl': largeImageUrl,
+      'image_url': imageUrl,
+      'small_image_url': smallImageUrl,
+      'large_image_url': largeImageUrl,
     };
   }
 
   factory Image.fromMap(Map<String, dynamic> map) {
     return Image(
-      imageUrl: map['imageUrl'] != null ? map['imageUrl'] as String : null,
-      smallImageUrl:
-          map['smallImageUrl'] != null ? map['smallImageUrl'] as String : null,
-      largeImageUrl:
-          map['largeImageUrl'] != null ? map['largeImageUrl'] as String : null,
+      imageUrl: map['image_url'] != null ? map['image_url'] as String : null,
+      smallImageUrl: map['small_image_url'] != null
+          ? map['small_image_url'] as String
+          : null,
+      largeImageUrl: map['large_image_url'] != null
+          ? map['large_image_url'] as String
+          : null,
     );
   }
 
@@ -319,60 +322,37 @@ class Image {
 }
 
 class Images {
-  String? imageUrl;
-  String? smallImageUrl;
-  String? mediumImageUrl;
-  String? largeImageUrl;
-  String? maximumImageUrl;
-
+  Image? jpg;
+  Image? webp;
   Images({
-    this.imageUrl,
-    this.smallImageUrl,
-    this.mediumImageUrl,
-    this.largeImageUrl,
-    this.maximumImageUrl,
+    this.jpg,
+    this.webp,
   });
 
   Images copyWith({
-    String? imageUrl,
-    String? smallImageUrl,
-    String? mediumImageUrl,
-    String? largeImageUrl,
-    String? maximumImageUrl,
+    Image? jpg,
+    Image? webp,
   }) {
     return Images(
-      imageUrl: imageUrl ?? this.imageUrl,
-      smallImageUrl: smallImageUrl ?? this.smallImageUrl,
-      mediumImageUrl: mediumImageUrl ?? this.mediumImageUrl,
-      largeImageUrl: largeImageUrl ?? this.largeImageUrl,
-      maximumImageUrl: maximumImageUrl ?? this.maximumImageUrl,
+      jpg: jpg ?? this.jpg,
+      webp: webp ?? this.webp,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'image_url': imageUrl,
-      'small_image_url': smallImageUrl,
-      'medium_image_url': mediumImageUrl,
-      'large_image_url': largeImageUrl,
-      'maximum_image_url': maximumImageUrl,
+      'jpg': jpg?.toMap(),
+      'webp': webp?.toMap(),
     };
   }
 
   factory Images.fromMap(Map<String, dynamic> map) {
     return Images(
-      imageUrl: map['image_url'] != null ? map['image_url'] as String : null,
-      smallImageUrl: map['small_image_url'] != null
-          ? map['small_image_url'] as String
+      jpg: map['jpg'] != null
+          ? Image.fromMap(map['jpg'] as Map<String, dynamic>)
           : null,
-      mediumImageUrl: map['medium_image_url'] != null
-          ? map['medium_image_url'] as String
-          : null,
-      largeImageUrl: map['large_image_url'] != null
-          ? map['large_image_url'] as String
-          : null,
-      maximumImageUrl: map['maximum_image_url'] != null
-          ? map['maximum_image_url'] as String
+      webp: map['webp'] != null
+          ? Image.fromMap(map['webp'] as Map<String, dynamic>)
           : null,
     );
   }
@@ -383,29 +363,17 @@ class Images {
       Images.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() {
-    return 'Images(imageUrl: $imageUrl, smallImageUrl: $smallImageUrl, mediumImageUrl: $mediumImageUrl, largeImageUrl: $largeImageUrl, maximumImageUrl: $maximumImageUrl)';
-  }
+  String toString() => 'Images(jpg: $jpg, webp: $webp)';
 
   @override
   bool operator ==(covariant Images other) {
     if (identical(this, other)) return true;
 
-    return other.imageUrl == imageUrl &&
-        other.smallImageUrl == smallImageUrl &&
-        other.mediumImageUrl == mediumImageUrl &&
-        other.largeImageUrl == largeImageUrl &&
-        other.maximumImageUrl == maximumImageUrl;
+    return other.jpg == jpg && other.webp == webp;
   }
 
   @override
-  int get hashCode {
-    return imageUrl.hashCode ^
-        smallImageUrl.hashCode ^
-        mediumImageUrl.hashCode ^
-        largeImageUrl.hashCode ^
-        maximumImageUrl.hashCode;
-  }
+  int get hashCode => jpg.hashCode ^ webp.hashCode;
 }
 
 class Prop {
@@ -712,7 +680,7 @@ class Trailer {
   String? youtubeId;
   String? url;
   String? embedUrl;
-  Images? images;
+  TrailerImages? images;
 
   Trailer({
     this.youtubeId,
@@ -725,7 +693,7 @@ class Trailer {
     String? youtubeId,
     String? url,
     String? embedUrl,
-    Images? images,
+    TrailerImages? images,
   }) {
     return Trailer(
       youtubeId: youtubeId ?? this.youtubeId,
@@ -750,7 +718,7 @@ class Trailer {
       url: map['url'] != null ? map['url'] as String : null,
       embedUrl: map['embed_url'] != null ? map['embed_url'] as String : null,
       images: map['images'] != null
-          ? Images.fromMap(map['images'] as Map<String, dynamic>)
+          ? TrailerImages.fromMap(map['images'] as Map<String, dynamic>)
           : null,
     );
   }
@@ -781,5 +749,95 @@ class Trailer {
         url.hashCode ^
         embedUrl.hashCode ^
         images.hashCode;
+  }
+}
+
+class TrailerImages {
+  String? imageUrl;
+  String? smallImageUrl;
+  String? mediumImageUrl;
+  String? largeImageUrl;
+  String? maximumImageUrl;
+
+  TrailerImages({
+    this.imageUrl,
+    this.smallImageUrl,
+    this.mediumImageUrl,
+    this.largeImageUrl,
+    this.maximumImageUrl,
+  });
+
+  TrailerImages copyWith({
+    String? imageUrl,
+    String? smallImageUrl,
+    String? mediumImageUrl,
+    String? largeImageUrl,
+    String? maximumImageUrl,
+  }) {
+    return TrailerImages(
+      imageUrl: imageUrl ?? this.imageUrl,
+      smallImageUrl: smallImageUrl ?? this.smallImageUrl,
+      mediumImageUrl: mediumImageUrl ?? this.mediumImageUrl,
+      largeImageUrl: largeImageUrl ?? this.largeImageUrl,
+      maximumImageUrl: maximumImageUrl ?? this.maximumImageUrl,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'image_url': imageUrl,
+      'small_image_url': smallImageUrl,
+      'medium_image_url': mediumImageUrl,
+      'large_image_url': largeImageUrl,
+      'maximum_image_url': maximumImageUrl,
+    };
+  }
+
+  factory TrailerImages.fromMap(Map<String, dynamic> map) {
+    return TrailerImages(
+      imageUrl: map['image_url'] != null ? map['image_url'] as String : null,
+      smallImageUrl: map['small_image_url'] != null
+          ? map['small_image_url'] as String
+          : null,
+      mediumImageUrl: map['medium_image_url'] != null
+          ? map['medium_image_url'] as String
+          : null,
+      largeImageUrl: map['large_image_url'] != null
+          ? map['large_image_url'] as String
+          : null,
+      maximumImageUrl: map['maximum_image_url'] != null
+          ? map['maximum_image_url'] as String
+          : null,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory TrailerImages.fromJson(String source) =>
+      TrailerImages.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String toString() {
+    return 'TrailerImages(imageUrl: $imageUrl, smallImageUrl: $smallImageUrl, mediumImageUrl: $mediumImageUrl, largeImageUrl: $largeImageUrl, maximumImageUrl: $maximumImageUrl)';
+  }
+
+  @override
+  bool operator ==(covariant TrailerImages other) {
+    if (identical(this, other)) return true;
+
+    return other.imageUrl == imageUrl &&
+        other.smallImageUrl == smallImageUrl &&
+        other.mediumImageUrl == mediumImageUrl &&
+        other.largeImageUrl == largeImageUrl &&
+        other.maximumImageUrl == maximumImageUrl;
+  }
+
+  @override
+  int get hashCode {
+    return imageUrl.hashCode ^
+        smallImageUrl.hashCode ^
+        mediumImageUrl.hashCode ^
+        largeImageUrl.hashCode ^
+        maximumImageUrl.hashCode;
   }
 }

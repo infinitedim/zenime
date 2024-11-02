@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:zenime/constant/constant.dart';
 import 'package:zenime/model/anime/anime.dart';
@@ -76,7 +75,6 @@ class ApiService<T> {
       final String url = "$apiUrl/anime/$id/episodes";
 
       http.get(Uri.parse(url), headers: headers).then((value) {
-        debugPrint('${json.decode(value.body)['data']}');
         onSuccess(
           (json.decode(value.body)['data'] as List?)
               ?.map((element) => AnimeEpisode.fromMap(element) as T?)

@@ -6,6 +6,7 @@ import 'package:zenime/controller/theme_controller.dart';
 import 'package:zenime/routes/routes.dart';
 import 'package:zenime/size_config.dart';
 import 'package:zenime/view/widgets/settings/credit_settings_menu_button.dart';
+import 'package:zenime/view/widgets/settings/delete_account/delete_account_menu_button.dart';
 import 'package:zenime/view/widgets/settings/logout_menu_button.dart';
 import 'package:zenime/view/widgets/settings/theme_settings_menu_button.dart';
 import 'package:zenime/view/widgets/shared/bottom_navigation_bar.dart';
@@ -54,6 +55,10 @@ class SettingsPage extends GetView<ThemeController> {
               height: getProportionateScreenHeight(20),
             ),
             LogoutMenuButton(),
+            SizedBox(
+              height: getProportionateScreenHeight(20),
+            ),
+            DeleteAccountMenuButton(),
           ],
         ),
       ),

@@ -16,6 +16,7 @@ class CustomButton extends GetView {
     this.icon,
     this.iconStyle,
     this.height = 56,
+    this.width = double.infinity,
   });
   final String? text;
   final GestureTapCallback? onPressed;
@@ -25,12 +26,13 @@ class CustomButton extends GetView {
   final bool isLoading;
   final IconData? icon;
   final double height;
+  final double width;
   final IconStyle? iconStyle;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: width,
       height: getProportionateScreenHeight(height),
       child: TextButton(
         style: buttonStyle ??
@@ -59,7 +61,7 @@ class CustomButton extends GetView {
                     style: textStyle ??
                         TextStyle(
                           decoration: textDecoration,
-                          fontSize: getProportionateScreenWidth(18),
+                          fontSize: 15,
                           color: Theme.of(context).colorScheme.surface,
                         ),
                   ),

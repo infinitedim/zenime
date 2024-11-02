@@ -5,7 +5,7 @@ import 'package:zenime/model/generic_model.dart';
 class AnimeDetail {
   int? malId;
   String? url;
-  Map<String, dynamic>? images;
+  Images? images;
   Trailer? trailer;
   bool? approved;
   List<Title?>? titles;
@@ -90,7 +90,7 @@ class AnimeDetail {
   AnimeDetail copyWith({
     int? malId,
     String? url,
-    Map<String, dynamic>? images,
+    Images? images,
     Trailer? trailer,
     bool? approved,
     List<Title?>? titles,
@@ -223,7 +223,7 @@ class AnimeDetail {
       malId: map['mal_id'] != null ? map['mal_id'] as int : null,
       url: map['url'] != null ? map['url'] as String : null,
       images: map['images'] != null
-          ? Map<String, dynamic>.from(
+          ? Images.fromMap(
               (map['images'] as Map<String, dynamic>),
             )
           : null,

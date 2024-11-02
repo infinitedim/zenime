@@ -4,12 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 class ZenimeAppBar extends StatefulWidget {
   const ZenimeAppBar({
     super.key,
-    required this.title,
     this.isExplore = false,
     this.tabController,
   });
 
-  final String title;
   final bool isExplore;
   final TabController? tabController;
 

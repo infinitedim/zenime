@@ -31,10 +31,10 @@ class ExploreCardAnime extends StatelessWidget {
                   Radius.circular(8),
                 ),
                 child: ProgressiveImage(
-                  placeholder: NetworkImage(anime?.images?['jpg']['image_url']),
+                  placeholder: NetworkImage(anime?.images?.jpg?.imageUrl ?? ''),
                   thumbnail:
-                      NetworkImage(anime?.images?['jpg']['small_image_url']),
-                  image: NetworkImage(anime?.images?['jpg']['large_image_url']),
+                      NetworkImage(anime?.images?.jpg?.smallImageUrl ?? ''),
+                  image: NetworkImage(anime?.images?.jpg?.largeImageUrl ?? ''),
                   height: 150,
                   width: 300,
                   repeat: ImageRepeat.noRepeat,

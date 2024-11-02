@@ -32,10 +32,10 @@ class ExploreCardManga extends StatelessWidget {
                   Radius.circular(8),
                 ),
                 child: ProgressiveImage(
-                  placeholder: NetworkImage(manga?.images?['jpg']['image_url']),
+                  placeholder: NetworkImage(manga?.images?.jpg?.imageUrl ?? ''),
                   thumbnail:
-                      NetworkImage(manga?.images?['jpg']['small_image_url']),
-                  image: NetworkImage(manga?.images?['jpg']['large_image_url']),
+                      NetworkImage(manga?.images?.jpg?.smallImageUrl ?? ''),
+                  image: NetworkImage(manga?.images?.jpg?.largeImageUrl ?? ''),
                   height: 150,
                   width: 300,
                   repeat: ImageRepeat.noRepeat,

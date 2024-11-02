@@ -48,9 +48,9 @@ class AnimePoster extends GetView<AnimeController> {
             Radius.circular(15),
           ),
           child: ProgressiveImage(
-            placeholder: NetworkImage(anime?.images?['jpg']['image_url']),
-            thumbnail: NetworkImage(anime?.images?['jpg']['small_image_url']),
-            image: NetworkImage(anime?.images?['jpg']['large_image_url']),
+            placeholder: NetworkImage(anime?.images?.jpg?.imageUrl ?? ''),
+            thumbnail: NetworkImage(anime?.images?.jpg?.smallImageUrl ?? ''),
+            image: NetworkImage(anime?.images?.jpg?.largeImageUrl ?? ''),
             height: SizeConfig.screenHeight / 2,
             width: SizeConfig.screenWidth - 100,
             repeat: ImageRepeat.noRepeat,

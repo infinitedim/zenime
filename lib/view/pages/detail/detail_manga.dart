@@ -77,8 +77,9 @@ class DetailManga extends GetView<MangaController> {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: NetworkImage(
-                                  controller.mangaDetail?.images?['jpg']
-                                      ['large_image_url'],
+                                  controller.mangaDetail?.images?.jpg
+                                          ?.largeImageUrl ??
+                                      '',
                                 ),
                                 fit: BoxFit.cover,
                               ),

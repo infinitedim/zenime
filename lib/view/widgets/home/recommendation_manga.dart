@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zenime/controller/manga_controller.dart';
 import 'package:zenime/routes/routes.dart';
@@ -31,13 +32,13 @@ class RecommendationManga extends StatelessWidget {
                   children: [
                     Text(
                       'Manga Recommendation',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: Theme.of(context).textTheme.bodyLarge?.color,
-                        fontSize:
-                            Theme.of(context).textTheme.headlineSmall?.fontSize,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    Spacer(),
                     IconButton(
                       onPressed: () {
                         Get.toNamed(explore, arguments: 1);
@@ -64,7 +65,7 @@ class RecommendationManga extends StatelessWidget {
                             controller.topMangas?[randomIndex]?.title ??
                                 'kosong';
                         String image = controller.topMangas?[randomIndex]
-                                ?.images?['jpg']['image_url'] ??
+                                ?.images?.jpg?.imageUrl ??
                             '';
                         int chapters =
                             controller.topMangas?[randomIndex]?.chapters ?? 0;

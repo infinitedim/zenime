@@ -46,9 +46,9 @@ class MangaPoster extends GetView<MangaController> {
             Radius.circular(15),
           ),
           child: ProgressiveImage(
-            placeholder: NetworkImage(manga?.images?['jpg']['image_url']),
-            thumbnail: NetworkImage(manga?.images?['jpg']['small_image_url']),
-            image: NetworkImage(manga?.images?['jpg']['large_image_url']),
+            placeholder: NetworkImage(manga?.images?.jpg?.imageUrl ?? ''),
+            thumbnail: NetworkImage(manga?.images?.jpg?.smallImageUrl ?? ''),
+            image: NetworkImage(manga?.images?.jpg?.largeImageUrl ?? ''),
             height: SizeConfig.screenHeight / 2,
             width: SizeConfig.screenWidth - 100,
             repeat: ImageRepeat.noRepeat,

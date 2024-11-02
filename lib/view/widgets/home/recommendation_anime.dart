@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:zenime/controller/anime_controller.dart';
 import 'package:zenime/routes/routes.dart';
@@ -30,10 +31,9 @@ class RecommendationAnime extends StatelessWidget {
                   children: [
                     Text(
                       'Anime Recommendation',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: Theme.of(context).textTheme.bodyLarge?.color,
-                        fontSize:
-                            Theme.of(context).textTheme.headlineSmall?.fontSize,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -66,7 +66,7 @@ class RecommendationAnime extends StatelessWidget {
                             controller.topAnimes?[randomIndex]?.title ??
                                 'kosong';
                         String image = controller.topAnimes?[randomIndex]
-                                ?.images?['jpg']['image_url'] ??
+                                ?.images?.jpg?.largeImageUrl ??
                             '';
                         int episodes =
                             controller.topAnimes?[randomIndex]?.episodes ?? 0;
