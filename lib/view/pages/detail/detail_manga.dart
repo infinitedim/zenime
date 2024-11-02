@@ -13,7 +13,7 @@ import 'package:zenime/view/widgets/detail/detail_poster.dart';
 class DetailManga extends GetView<MangaController> {
   const DetailManga({super.key, required this.id});
 
-  final int id;
+  final int? id;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,9 @@ class DetailManga extends GetView<MangaController> {
     return GetBuilder<MangaController>(
       init: MangaController(),
       initState: (initState) {
-        controller.getMangaFullById(id: id);
+        if (id != null) {
+          controller.getMangaFullById(id: id!);
+        }
       },
       builder: (controller) {
         return Scaffold(

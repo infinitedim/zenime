@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:zenime/APIs/api_services.dart';
 import 'package:zenime/model/anime/anime.dart';
-import 'package:zenime/model/anime/anime_episodes.dart';
 import 'package:zenime/model/anime/top_anime.dart';
 
 class AnimeController extends GetxController {
@@ -18,14 +17,6 @@ class AnimeController extends GetxController {
   AnimeDetail? get animeDetail => _animeDetail;
   set animeDetail(AnimeDetail? value) {
     _animeDetail = value;
-
-    update();
-  }
-
-  List<AnimeEpisode?>? _animeEpisodes = [];
-  List<AnimeEpisode?>? get animeEpisodes => _animeEpisodes;
-  set animeEpisodes(List<AnimeEpisode?>? value) {
-    _animeEpisodes = value;
 
     update();
   }
@@ -79,28 +70,6 @@ class AnimeController extends GetxController {
       onSuccess: (response) {
         if (response != null) {
           animeDetail = response;
-        }
-        completer.complete(true);
-      },
-      defaultErrorHandler: (errorMessage) {
-        if (kDebugMode) {
-          print(errorMessage);
-        }
-        completer.completeError(false);
-      },
-    );
-
-    return await completer.future;
-  }
-
-  Future<bool> getAnimeEpisodes({required int id}) async {
-    Completer completer = Completer();
-    final response = ApiService<AnimeEpisode?>().getAnimeEpisodes(id: id);
-
-    response(
-      onSuccess: (response) {
-        if (response != null || response != []) {
-          animeEpisodes = response;
         }
         completer.complete(true);
       },

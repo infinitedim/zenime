@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zenime/enum/enum_collection.dart';
 import 'package:zenime/handlers/auth_exception_handlers.dart';
+import 'package:zenime/helpers/helpers.dart';
 
 class AuthController extends GetxController with GetxServiceMixin {
   final TextEditingController emailController = TextEditingController();
@@ -105,16 +105,10 @@ class AuthController extends GetxController with GetxServiceMixin {
       authStatus = AuthStatus.successful;
       return authStatus;
     } on FirebaseAuthException catch (error) {
-      Fluttertoast.showToast(
-        msg: AuthExceptionHandler.generateErrorMessage(
+      Helpers.errorToast(
+        AuthExceptionHandler.generateErrorMessage(
           AuthExceptionHandler.handleAuthException(error),
         ),
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
       );
       isLoading = false;
       return AuthExceptionHandler.handleAuthException(error);
@@ -138,17 +132,12 @@ class AuthController extends GetxController with GetxServiceMixin {
       authStatus = AuthStatus.successful;
       return authStatus;
     } on FirebaseAuthException catch (error) {
-      Fluttertoast.showToast(
-        msg: AuthExceptionHandler.generateErrorMessage(
+      Helpers.errorToast(
+        AuthExceptionHandler.generateErrorMessage(
           AuthExceptionHandler.handleAuthException(error),
         ),
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
       );
+
       return AuthExceptionHandler.handleAuthException(error);
     }
   }
@@ -158,17 +147,12 @@ class AuthController extends GetxController with GetxServiceMixin {
       authStatus = AuthStatus.successful;
       return AuthStatus.successful;
     }).catchError((error) {
-      Fluttertoast.showToast(
-        msg: AuthExceptionHandler.generateErrorMessage(
+      Helpers.errorToast(
+        AuthExceptionHandler.generateErrorMessage(
           AuthExceptionHandler.handleAuthException(error),
         ),
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
       );
+
       return AuthExceptionHandler.handleAuthException(error);
     });
     return AuthStatus.successful;
@@ -183,15 +167,12 @@ class AuthController extends GetxController with GetxServiceMixin {
       authStatus = AuthStatus.unknown;
       return authStatus;
     } on FirebaseAuthException catch (error) {
-      Fluttertoast.showToast(
-        msg: AuthExceptionHandler.generateErrorMessage(authStatus),
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
+      Helpers.errorToast(
+        AuthExceptionHandler.generateErrorMessage(
+          AuthExceptionHandler.handleAuthException(error),
+        ),
       );
+
       return AuthExceptionHandler.handleAuthException(error);
     }
   }
@@ -201,29 +182,16 @@ class AuthController extends GetxController with GetxServiceMixin {
       authStatus = AuthStatus.unknown;
       if (_user.value != null) {
         await _user.value!.delete();
-        Fluttertoast.showToast(
-          msg: 'Success delete your zenime account',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        );
+        Helpers.successToast('Success delete your zenime account');
       }
       return authStatus;
     } on FirebaseAuthException catch (error) {
-      Fluttertoast.showToast(
-        msg: AuthExceptionHandler.generateErrorMessage(
+      Helpers.errorToast(
+        AuthExceptionHandler.generateErrorMessage(
           AuthExceptionHandler.handleAuthException(error),
         ),
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
       );
+
       return AuthExceptionHandler.handleAuthException(error);
     }
   }

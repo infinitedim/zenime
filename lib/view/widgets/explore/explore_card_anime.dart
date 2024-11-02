@@ -60,7 +60,9 @@ class ExploreCardAnime extends StatelessWidget {
                       ),
                       IconButton(
                         onPressed: () {
-                          Helpers.bookmarkErrorToast();
+                          Helpers.errorToast(
+                            'bookmark feature is not ready yet',
+                          );
                         },
                         icon: const FaIcon(
                           FontAwesomeIcons.bookmark,

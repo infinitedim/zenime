@@ -24,7 +24,6 @@ class DetailAnime extends GetView<AnimeController> {
       initState: (initState) {
         if (id != null) {
           controller.getAnimeFullById(id: id!);
-          controller.getAnimeEpisodes(id: id!);
         }
       },
       builder: (controller) {

@@ -38,15 +38,7 @@ class Helpers {
 
       if (isBackPressDiffTimeLessThanTwoSecond) {
         currentBackPressTime = now;
-        Fluttertoast.showToast(
-          msg: 'press again to exit',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        );
+        Helpers.errorToast('press again to exit');
       } else {
         SystemNavigator.pop();
       }
@@ -74,13 +66,25 @@ class Helpers {
     }
   }
 
-  static void bookmarkErrorToast() {
+  static void errorToast(String message) {
     Fluttertoast.showToast(
-      msg: 'bookmark feature not ready yet',
+      msg: message,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
       backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
+
+  static void successToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.green,
       textColor: Colors.white,
       fontSize: 16.0,
     );

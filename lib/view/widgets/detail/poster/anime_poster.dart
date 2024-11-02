@@ -80,7 +80,9 @@ class AnimePoster extends GetView<AnimeController> {
             iconColor: Theme.of(context).colorScheme.surface,
           ),
           onPressed: () {
-            Helpers.bookmarkErrorToast();
+            Helpers.errorToast(
+              'bookmark feature is not ready yet',
+            );
           },
         )
       ],

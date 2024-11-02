@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:progressive_image/progressive_image.dart';
@@ -61,14 +60,8 @@ class ExploreCardManga extends StatelessWidget {
                       ),
                       IconButton(
                         onPressed: () {
-                          Fluttertoast.showToast(
-                            msg: 'bookmark feature not ready yet',
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.red,
-                            textColor: Colors.white,
-                            fontSize: 16.0,
+                          Helpers.errorToast(
+                            'bookmark features is not ready yet',
                           );
                         },
                         icon: const FaIcon(
